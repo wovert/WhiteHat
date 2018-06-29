@@ -293,3 +293,32 @@ http://www.exploit-db.com/google-dorks/
 
 需要自己灵活的扩展，以适应中文站点的查询
 
+## SET
+
+> 开源的社会工程学利用套件，通常结合 metasploit 来使用
+
+项目地址：https://github.com/trustedsec/social-engineer-toolkit
+
+Social-Engineering Attacks 社会工程学攻击
+
+Fast-Track Penetration Testing 渗透测试
+
+``` shell
+# setoolkit
+set> 1
+
+1) Spear-Phishing Attack Vectors 鱼叉式钓鱼攻击
+2) Website Attack Vectors 网站攻击
+3) Infectious Media Generator 介质感染攻击
+4) Create a Payload and Listener
+5) Mass Mailer Attack 群发邮件攻击
+6) Arduino-Based Attack Vector 基于 Arduino 的攻击
+7) Wireless Access Point Attack Vector 无线接入点攻击
+8) QRCode Generator Attack Vector 二维码攻击
+9) Powershell Attack Vectors
+10) SMS Spoofing Attack Vector
+11) Third Party Modules
+
+
+
+```
