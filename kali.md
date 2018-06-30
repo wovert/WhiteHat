@@ -318,7 +318,85 @@ set> 1
 9) Powershell Attack Vectors
 10) SMS Spoofing Attack Vector
 11) Third Party Modules
+```
 
+## nmap
 
+> 用于网络发现(Network Discovery)和安全审计(Security Auditing)的网络安全工具
 
+[nmap官方站点](http://nmap.org/)
+
+### nmap - 主机扫描类型
+
+``` options
+nmap [Scan Type(s)] [Options] {target sepcification}
+
+-sl(列表扫描)
+-sP(Ping扫描)
+-P0(无ping)
+-PS [portlist](TCP SYN Ping)
+-PA [portlist] (TCP ACK Ping)
+-PU [portlist] (UDP Ping)
+-PE;-PP;-PM (ICMP Ping Types)
+-PR (ARP Ping)
+
+参数：-n(不用域名解析), -R(为所有目标解析域名)
+
+可以同时制定多种扫描方式
+```
+
+### nmap-端口扫描技术
+
+``` options
+-sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
+-sU: UDP Scan
+-sN/sF/sX: TCP Null, FIN, and Xmas scans
+--scanflags <flags>: Customize TCP scan flags
+-sl <zombie host[:probeport]>: idle scan
+-sY/sZ: SCTP INIT/COOKIE-ECHO scans
+-sO: IP protocol scan
+-b <FTP relay host>: FTP bounce scan
+```
+
+### nmap 扫描命令格式
+
+`nmap 扫描命令格式`：nmap [Scan Type(s)] [Options] {target specification}
+
+nmap [Scan Type(s)] [Options] {target specification}
+
+``` nmap
+# nmap -sL 103.10.81.1-255 扫描主机
+# nmap -PE 103.10.81.1-255 ping扫描
+# nmap -PS80 103.10.87.1-255 对80端口扫描
+# nmap -PR 103.10.87.1-255 对局域网扫描
+# nmap -Pn 103.10.87.1-255 不适用 ping 扫描，更适合 internet
+# nmap -sP 103.10.87.1-255(快速 ping 扫描)
+
+# nmap -Pn -sn 103.10.87.1-255 只探测存存活主机，不扫描其他信息
+
+#nmap -sS 103.10.87.148
+#nmap -sT 103.10.87.1-255 查看打开端口的服务
+#nmap -sU 103.10.87.1-255
+#nmap -sU -p 80,445 103.10.87.1-255
+#namp -sT -v 103.10.87.1-255(启用细节模式)
+```
+
+### nmap-操作系统探测
+```
+-O (启用操作系统探测)
+-osscan-limit(针对指定的目标进行操作系统检测)
+--osscan-guess;--fuzzy(推测操作系统检测结果)
+
+# nmap -sT -O 192.168.1.100
+# nmap -sT -p 3390 -O --osscan-limit 103.10.87.148
+# nmap -sA -O 103.10.87.148
+```
+
+### nmap-服务程序探测
+
+``` 
+-sV
+
+# nmap -sV 103.10.87.148
+# nmap -sV -p 22,53, 110, 143, 4564 103.10.86.1-255
 ```
