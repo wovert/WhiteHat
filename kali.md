@@ -106,7 +106,6 @@ pageDown/pageUp 翻页查看信息
 拦截请求：输入 `i` 会出现 `Intercept filter:`, `~u \.php`，访问页面是有php文件请求时拦截，输入`a`放行，如果要编辑，则选择请求地址并按下` ENTER` 键并按下 `e` 键会出现 `Edit request (query, form, url, header, raw body, method)?` 按下 `q` 退出，继续输入 `a` 放行
 ```
 
-
 命令行
 
 `?` 进入帮助信息界面
@@ -181,7 +180,7 @@ intercept 拦截
 
 ### 注入案例
 
-```
+``` config
 以 sql 注入入手，目标为熟悉基本的思路
 
 1. 通过google hack 寻找测试目标
@@ -382,7 +381,8 @@ nmap [Scan Type(s)] [Options] {target specification}
 ```
 
 ### nmap-操作系统探测
-```
+
+``` shell
 -O (启用操作系统探测)
 -osscan-limit(针对指定的目标进行操作系统检测)
 --osscan-guess;--fuzzy(推测操作系统检测结果)
@@ -394,7 +394,7 @@ nmap [Scan Type(s)] [Options] {target specification}
 
 ### nmap-服务程序探测
 
-``` 
+``` shell
 -sV
 
 # nmap -sV 103.10.87.148
