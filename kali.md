@@ -4,13 +4,12 @@
 
 [Kali官网](http:/kali.org)
 
-虚拟机 （Debian 64，20G）
+虚拟机(Debian 64，20G)
 
 ### 添加 Kali 更新源
 
 ``` shell
 # vim /etc/apt/sources.list
-
 deb http://http.kali.org/kali kali main non-free contrib
 deb-src http://http.kali.org/kali kali main non-free contrib
 deb http://security.kali.org/kali-security kali/updates main contrib non-free
@@ -29,15 +28,80 @@ deb http://mirrors.163.com/debian-security wheezy/updates main non-free contrib
 
 # apt-get update 更新源
 # apt-get upgrade 下载要更新的软件包
+```
 
-kali-linux安装中文输入法（以下任意选择一种安装）：
+### kali-linux安装中文输入法（以下任意选择一种安装）：
 
-# apt-get install fcitx-table-wbpy ttf-wqy-microhei ttf-wqy-zenhei                        # 拼音五笔
-# apt-get install ibus ibus-pinyin              # 经典的ibus
-# apt-get install fcitx fcitx-pinyin fcitx-module-cloudpinyin fcitx-googlepinyin                # fcitx拼音
+``` shell
+拼音五笔
+# apt-get install fcitx-table-wbpy ttf-wqy-microhei ttf-wqy-zenhei
 
-注销，重新登录之后才可以使用。
+经典的ibus
+# apt-get install ibus ibus-pinyin
 
+fcitx拼音
+# apt-get install fcitx fcitx-pinyin fcitx-module-cloudpinyin fcitx-googlepinyin
+
+搜狗输入法
+# dpkg -i sougou.xxx.deb 解包
+
+自動解決依賴關係
+# apt-get install -f
+
+注销: 重新登录之后才可以使用
+# reboot
+```
+
+### 安装 open-vm-tools
+
+``` shell
+# apt-get install open-vm-tools-desktop fuse
+# reboot
+```
+
+### kali 的美化
+
+- 图标位置: /usr/share/icons
+  - numix
+    - Numix-Circle
+    - `# cp -r Numix-Circle/ /usr/share/icons/numix`
+    - 
+- 主题位置: /usr/share/thems/
+
+- gnome3
+
+### DNS 收集分析 - dnsdict6
+
+``` shell
+# dnsdict6 [options] [domain] [字典]
+  -4 查询IPv4
+  -D 显示自带的字典
+  -t 线程数 最高32，默认是8
+  -d 显示NS MX
+  -S SRV服务名称猜解
+  s(mall=100),-m(edium=1419) (DEFAULT)  线程数
+  -l(arge=2601), -x(treme=5886) or-u(ber=16724)
+```
+
+- 1.0内置 dnsdict6
+- 2.0 需要手动安装
+
+手动安装dnsdict6
+
+``` shell
+# wget https://src.fedoraproject.org/lookaside/pkgs/thc-ipv6/thc-ipv6-2.7.tar.gz/md5/2975dd54be35b68c140eb2a6b8ef5e59/thc-ipv6-2.7.tar.gz
+# tar zvxf thc-ipv6.2.7.tar.gz
+# cd thc-ipv6.2.7
+# sudo apt-get install libpcap-dev libssl-dev
+# make
+# sudo cp dnsdict6 /usr/bin/
+
+# dnsdict6 -4 baidu.com 查找IPv4
+# dnsdict6 baidu.com 查找IPv6
+
+# vim 1.txt
+ipv6
+# dnsdict6 baidu.com 1.txt
 ```
 
 ### 启动 postgresql 服务
@@ -400,3 +464,71 @@ nmap [Scan Type(s)] [Options] {target specification}
 # nmap -sV 103.10.87.148
 # nmap -sV -p 22,53, 110, 143, 4564 103.10.86.1-255
 ```
+
+## nessus - 漏洞扫描工具
+
+### 1. [nessus安装地址](https://www.tenable.com/downloads/nessus#nessus-7-1-3)
+
+``` shell
+# dkpg -i Nessus-VERSION.deb
+
+启动服务命令
+# /etc/init.d/nessusd start
+```
+
+### 2. 访问WebUI界面： https://kali:8834/
+
+- user:root
+- passwd:root
+
+- [生成注册码地址](https://www.tenable.com/products/nessus/activation-code)
+
+- Activation code*:
+  - 7850-E1DC-580B-11B0-6C2F
+
+- 显示下载插件进度条
+
+### 2. nessus 扫描
+
+- New Scan
+  - Scanner Templates
+    - Advanced Scan
+      - Name：
+      - Targets(扫描目标): 192.168.1.118
+
+## 提权
+
+### 提权方式
+
+#### 1.纵向用户
+
+guest -> admin -> domian admin
+
+#### 2. 横向提权
+
+guest -> admin1(开发部门权限)
+
+admin2(销售部门权限)
+
+### 漏洞提权
+
+- Metasploit
+
+### shell 提权
+
+- webshell
+- msf shell(普通用户权限升级到管理员权限)
+
+### 弱口令提权
+
+- 1pc telnet privi15 admin admin telnet://10.1.1.1 admin admin
+
+### 配置缺陷提权
+
+1. 配置文件泄露信息；/wwwroot.zip mysql config.php
+2. 未授权访问
+
+### 中间人攻击提权
+
+## 越权
+
