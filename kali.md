@@ -1,5 +1,20 @@
 # kali
 
+- 基于Debian的Linux发行版本
+- 前身是BackTrack, 2013年3月发布
+- 用于渗透测试和安全审计
+- 包含600+安全工具
+- FHS标准目录结构
+- 定制内核
+- 支持ARM和手机平台
+- 开源免费
+
+## Kali Linux 策略
+
+- root用户策略
+- 网络服务策略
+- 更新升级策略
+
 ## Setup kali
 
 [Kali官网](http:/kali.org)
